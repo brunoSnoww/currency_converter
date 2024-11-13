@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import React from "react";
-import { getTickerQuery } from "./utils/uphold-sdk";
-import { CurrencyExchangeTable } from "./pages/CurrencyExchangeTable";
 import { QueryClient } from "@tanstack/react-query";
 import { Currency } from "./types";
+import { CurrencyExchangeTable } from "./components/CurrencyExchangeTable";
+import { getTickerQuery } from "./hooks/useTickerData";
 
 export const router = (queryClient: QueryClient) =>
   createBrowserRouter([
@@ -20,11 +20,10 @@ export const router = (queryClient: QueryClient) =>
             const amount =
               new URL(request.url).searchParams.get("amount") || "0";
             const query = getTickerQuery(amount, currency);
-            let p =
+            return (
               queryClient.getQueryData(query.queryKey) ??
-              (await queryClient.fetchQuery(query));
-            console.log(p);
-            return p;
+              (await queryClient.fetchQuery(query))
+            );
           },
         },
       ],

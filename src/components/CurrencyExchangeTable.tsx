@@ -1,7 +1,4 @@
-import { useLoaderData } from "react-router-dom";
 import React from "react";
-import { CurrencyExchangeData } from "../types";
-import { useQuery } from "@tanstack/react-query";
 import { useTickerData } from "../hooks/useTickerData";
 
 export const CurrencyExchangeTable = () => {

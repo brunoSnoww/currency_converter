@@ -1,15 +1,17 @@
 import "./index.css";
-// @deno-types="@types/react"
 import { StrictMode } from "react";
-// @deno-types="@types/react-dom/client"
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import React from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router(queryClient)} />
+    </QueryClientProvider>
   </StrictMode>,
 );

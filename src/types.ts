@@ -6,8 +6,7 @@ export type GetTickerAPIResponse = {
   pair: string;
 };
 
-export type CurrencyExchangeData = {
-  exchangedCurrency: Currency;
+export type CurrencyExchangeData = Pick<GetTickerAPIResponse, "currency"> & {
   amount: number;
 };
 

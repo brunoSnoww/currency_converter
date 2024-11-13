@@ -1,7 +1,7 @@
 import React from "react";
 import { useTickerData } from "../hooks/useTickerData";
 
-export const CurrencyExchangeTable = () => {
+const Tables = () => {
   const { data } = useTickerData();
   return (
     <ul>
@@ -14,5 +14,13 @@ export const CurrencyExchangeTable = () => {
         </li>
       ))}
     </ul>
+  );
+};
+
+export const CurrencyExchangeTable = () => {
+  return (
+    <React.Suspense fallback={<div>fuuuuccckkk</div>}>
+      <Tables />
+    </React.Suspense>
   );
 };

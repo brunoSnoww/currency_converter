@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useLoaderData } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Currency, CurrencyExchangeData, GetTickerAPIResponse } from "../types";
 import { getTickerData } from "../mocks/tickerResponse";
@@ -19,7 +19,7 @@ export function getSdk() {
   return {
     getTicker: () => {
       return new Promise((r) => {
-        setTimeout(() => r(getTickerData), 1000);
+        setTimeout(() => r(getTickerData), 3000);
       });
     },
   } as SDK;
@@ -44,6 +44,7 @@ export const getTickerQuery = (amount: string, currency: Currency) => ({
   staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes
   cacheTime: 1000 * 60 * 15, // Cache data stays in memory for 15 minutes
   refetchOnWindowFocus: true, // Refetch when the window gains focus
+  suspense: true,
 });
 
 export const useTickerData = () => {

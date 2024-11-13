@@ -1,12 +1,15 @@
-import './index.css'
+import "./index.css";
 // @deno-types="@types/react"
-import { StrictMode } from 'react'
+import { StrictMode } from "react";
 // @deno-types="@types/react-dom/client"
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router.tsx";
 
-createRoot(document.getElementById('root') as HTMLElement).render(
+createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </StrictMode>,
-)
+);

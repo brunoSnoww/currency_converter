@@ -6,6 +6,7 @@
     "npm:@types/react@^18.3.11": "18.3.12",
     "npm:@vitejs/plugin-react@^4.3.3": "4.3.3_vite@5.4.11_@babel+core@7.26.0",
     "npm:react-dom@^18.3.1": "18.3.1_react@18.3.1",
+    "npm:react-router-dom@^6.28.0": "6.28.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:react@^18.3.1": "18.3.1",
     "npm:vite@*": "5.4.11",
     "npm:vite@^5.4.9": "5.4.11"
@@ -250,6 +251,9 @@
         "@jridgewell/sourcemap-codec"
       ]
     },
+    "@remix-run/router@1.21.0": {
+      "integrity": "sha512-xfSkCAchbdG5PnbrKqFWwia4Bi61nH+wm8wLEqfHDyp7Y3dZzgqS2itV8i4gAq9pC2HsTpwyBC6Ds8VHZ96JlA=="
+    },
     "@rollup/rollup-android-arm-eabi@4.25.0": {
       "integrity": "sha512-CC/ZqFZwlAIbU1wUPisHyV/XRc5RydFrNLtgl3dGYskdwPZdt4HERtKm50a/+DtTlKeCq9IXFEWR+P6blwjqBA=="
     },
@@ -482,6 +486,22 @@
     "react-refresh@0.14.2": {
       "integrity": "sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA=="
     },
+    "react-router-dom@6.28.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-kQ7Unsl5YdyOltsPGl31zOjLrDv+m2VcIEcIHqYYD3Lp0UppLjrzcfJqDJwXxFw3TH/yvapbnUvPlAj7Kx5nbg==",
+      "dependencies": [
+        "@remix-run/router",
+        "react",
+        "react-dom",
+        "react-router"
+      ]
+    },
+    "react-router@6.28.0_react@18.3.1": {
+      "integrity": "sha512-HrYdIFqdrnhDw0PqG/AKjAqEqM7AvxCz0DQ4h2W8k6nqmc5uRBYDag0SBxx9iYz5G8gnuNVLzUe13wl9eAsXXg==",
+      "dependencies": [
+        "@remix-run/router",
+        "react"
+      ]
+    },
     "react@18.3.1": {
       "integrity": "sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==",
       "dependencies": [
@@ -553,6 +573,7 @@
       "npm:@types/react@^18.3.11",
       "npm:@vitejs/plugin-react@^4.3.3",
       "npm:react-dom@^18.3.1",
+      "npm:react-router-dom@^6.28.0",
       "npm:react@^18.3.1",
       "npm:vite@^5.4.9"
     ]

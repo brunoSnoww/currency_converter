@@ -32,7 +32,6 @@ export enum Currency {
   INR = "INR",
   JPY = "JPY",
   KES = "KES",
-  LBA = "LBA",
   LTC = "LTC",
   MXN = "MXN",
   NOK = "NOK",

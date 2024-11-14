@@ -27,26 +27,26 @@ export function getSdk() {
   } as SDK;*/
 }
 
-const processGetTickerAPIResponse = (
-  amount: string,
-  response: GetTickerAPIResponse[],
-) => {
-  return response.map((d) => ({
-    currency: d.currency as Currency,
-    amount: parseFloat(d.bid) * parseFloat(amount),
-  })) as [];
-};
+function isCurrency(value: string): value is Currency {
+  return Object.values(Currency).includes(value as Currency);
+}
 
-export const getTickerQuery = (amount: string, currency: Currency) => ({
-  queryKey: ["ticker", `${currency}`, `${amount}`],
-  queryFn: () =>
-    getSdk()
-      .getTicker(currency)
-      .then((res) => res.filter((d) => d.currency != currency))
-      .then((res) => processGetTickerAPIResponse(amount, res)),
-  staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes
-  cacheTime: 1000 * 60 * 15, // Cache data stays in memory for 15 minutes
-  refetchOnWindowFocus: true, // Refetch when the window gains focus
+export const getTickerQuery = (amount: string, currency_from: Currency) => ({
+  queryKey: ["ticker", `${currency_from}`, `${amount}`],
+  queryFn: async () => {
+    const getTickerResponse = await getSdk().getTicker(currency_from);
+    return getTickerResponse
+      .filter(
+        ({ currency }) => currency != currency_from && isCurrency(currency),
+      )
+      .map(({ currency, bid }) => ({
+        currency,
+        amount: parseFloat(bid) * parseFloat(amount),
+      })) as [];
+  },
+  staleTime: 1000 * 60 * 5,
+  cacheTime: 1000 * 60 * 15,
+  refetchOnWindowFocus: true,
   suspense: true,
 });
 

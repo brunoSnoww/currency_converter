@@ -1,14 +1,38 @@
-import "./App.css";
-// @deno-types="@types/react"
-import { useState } from "react";
-// @ts-expect-error Unable to infer type at the moment
-import reactLogo from "./assets/react.svg";
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
+import { useDebounce } from "./hooks/useDebounce";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [amount, setAmount] = useState("");
+  const navigate = useNavigate();
 
-  return <>Hello</>;
+  // Debounced function to update the URL
+  const debouncedRedirect = useDebounce((value: string) => {
+    if (value) {
+      navigate(`?amount=${value}`);
+    }
+  }, 500); // Adjust debounce delay as needed
+
+  // Handle input change and trigger the debounced redirect
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setAmount(value);
+    debouncedRedirect(value); // Call the debounced function with the current input value
+  };
+
+  return (
+    <div>
+      <label htmlFor="amount">Amount</label>
+      <input
+        type="text"
+        value={amount}
+        id="amount"
+        onChange={handleChange}
+        required
+      />
+      <Outlet />
+    </div>
+  );
 }
 
 export default App;

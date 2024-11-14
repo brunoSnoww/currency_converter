@@ -1,6 +1,7 @@
 import React from "react";
 import { useTickerData } from "../hooks/useTickerData";
 import { CurrencyExchangeData } from "../types";
+import currencyIcons from "./Icons";
 
 const CurrencyDisplay: React.FC<CurrencyExchangeData> = ({
   currency,
@@ -9,9 +10,14 @@ const CurrencyDisplay: React.FC<CurrencyExchangeData> = ({
   // Construct path to icon based on currency
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    <div
+      style={{ display: "flex", justifyContent: "space-between", gap: "8px" }}
+    >
       <span>{amount.toFixed(2)}</span>
-      <span>{currency.toUpperCase()}</span>
+      <div>
+        <span>{currency.toUpperCase()}</span>
+        <img src={currencyIcons[currency]} />
+      </div>
     </div>
   );
 };

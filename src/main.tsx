@@ -1,19 +1,20 @@
 import "./index.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import React from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtoolsPanel />
-      <RouterProvider router={router(queryClient)} />
+      <Theme>
+        <RouterProvider router={router(queryClient)} />
+      </Theme>
     </QueryClientProvider>
   </StrictMode>,
 );

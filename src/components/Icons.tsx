@@ -36,7 +36,7 @@ import iconXPT from "../assets/icons/XPT.png";
 import iconXRP from "../assets/icons/XRP.png";
 import { Currency } from "../types";
 
-const currencyIcons: Record<Currency, string> = {
+export const currencyIcons: Record<Currency, string> = {
   [Currency.AED]: iconAED,
   [Currency.ARS]: iconARS,
   [Currency.AUD]: iconAUD,

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import React from "react";
 export const NoticiationContext = createContext({} as any);
 
 export const NotificationProvider = ({ children }) => {
@@ -14,5 +13,4 @@ export const NotificationProvider = ({ children }) => {
     </NoticiationContext.Provider>
   );
 };
-
 export const useNotification = useContext(NoticiationContext);

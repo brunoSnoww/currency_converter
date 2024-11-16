@@ -1,39 +1,40 @@
-import React, { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useDebounce } from "./hooks/useDebounce";
 import { Currency } from "./types";
+import { Flex } from "@radix-ui/themes";
+import { Form } from "./components/Form/Form";
 
 function App() {
-  const [amount, setAmount] = useState("");
-  const [currency, setCurrency] = useState<Currency>(Currency.USD);
   const navigate = useNavigate();
 
-  // Debounced function to update the URL
-  const debouncedRedirect = useDebounce((value: string) => {
+  const debouncedRedirect = useDebounce((currency: Currency, value: string) => {
     if (value) {
       navigate(`/${currency}?amount=${value}`);
     }
   }, 500); // Adjust debounce delay as needed
 
-  // Handle input change and trigger the debounced redirect
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setAmount(value);
-    debouncedRedirect(value); // Call the debounced function with the current input value
+  const handleChange = (currency: Currency, amount: string) => {
+    debouncedRedirect(currency, amount); // Call the debounced function with the current input value
   };
 
   return (
-    <div>
-      <label htmlFor="amount">Amount</label>
-      <input
-        type="text"
-        value={amount}
-        id="amount"
-        onChange={handleChange}
-        required
-      />
+    <Flex
+      width="100vw"
+      height="100vh"
+      justify="center"
+      align="center"
+      direction="column"
+    >
+      <div style={{ minWidth: "20%" }}>
+        <Form
+          onCurrencyChange={(currency: Currency, amount: string) => {
+            navigate(`/${currency}?amount=${amount}`);
+          }}
+          onAmountChange={handleChange}
+        />
+      </div>
       <Outlet />
-    </div>
+    </Flex>
   );
 }
 

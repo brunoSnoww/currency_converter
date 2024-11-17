@@ -7,15 +7,14 @@ import { Form } from "./components/Form/Form";
 function App() {
   const navigate = useNavigate();
 
+  const redirect = (currency: Currency, value: string) =>
+    navigate(`/${currency}?amount=${value}`);
+
   const debouncedRedirect = useDebounce((currency: Currency, value: string) => {
     if (value) {
-      navigate(`/${currency}?amount=${value}`);
+      redirect(currency, value);
     }
   }, 500); // Adjust debounce delay as needed
-
-  const handleChange = (currency: Currency, amount: string) => {
-    debouncedRedirect(currency, amount); // Call the debounced function with the current input value
-  };
 
   return (
     <Flex
@@ -26,14 +25,9 @@ function App() {
       direction="column"
     >
       <div style={{ minWidth: "20%" }}>
-        <Form
-          onCurrencyChange={(currency: Currency, amount: string) => {
-            navigate(`/${currency}?amount=${amount}`);
-          }}
-          onAmountChange={handleChange}
-        />
+        <Form onCurrencyChange={redirect} onAmountChange={debouncedRedirect} />
+        <Outlet />
       </div>
-      <Outlet />
     </Flex>
   );
 }

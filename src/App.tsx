@@ -1,8 +1,8 @@
 import { useNavigate, Outlet } from "react-router-dom";
 import { useDebounce } from "./hooks/useDebounce";
 import { Currency } from "./types";
-import { Flex } from "@radix-ui/themes";
-import { Form } from "./components/Form/Form";
+import { Flex, Heading, Text } from "@radix-ui/themes";
+import { UserInput } from "./components/UserInput";
 
 function App() {
   const navigate = useNavigate();
@@ -11,21 +11,39 @@ function App() {
     navigate(`/${currency}?amount=${value}`);
 
   const debouncedRedirect = useDebounce((currency: Currency, value: string) => {
-    if (value) {
-      redirect(currency, value);
-    }
-  }, 500); // Adjust debounce delay as needed
+    redirect(currency, value);
+  }, 500);
 
   return (
     <Flex
       width="100vw"
-      height="100vh"
       justify="center"
       align="center"
       direction="column"
+      gap="4"
     >
-      <div style={{ minWidth: "20%" }}>
-        <Form onCurrencyChange={redirect} onAmountChange={debouncedRedirect} />
+      <Flex direction="column" align="center" gap="6">
+        <Heading size="4" mb="6">
+          Currency Converter
+        </Heading>
+        <Text
+          size="3"
+          color="gray"
+          style={{
+            maxWidth: "32rem",
+            textAlign: "center",
+          }}
+        >
+          Receive competitive and transparent pricing with no hidden spreads.
+          See how we compare.
+        </Text>
+      </Flex>
+      <div style={{ minWidth: "32rem" }}>
+        <UserInput
+          onCurrencyChange={redirect}
+          onAmountChange={debouncedRedirect}
+        />
+        <br />
         <Outlet />
       </div>
     </Flex>

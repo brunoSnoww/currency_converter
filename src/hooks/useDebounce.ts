@@ -1,15 +1,16 @@
 import { useRef, useCallback } from "react";
 
-export function useDebounce(
-  callback: (...args: any[]) => void,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useDebounce<T extends (...args: any[]) => void>(
+  callback: T,
   delay: number,
   immediate = false,
-) {
+): (...args: Parameters<T>) => void {
   const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastCallTime = useRef<number | null>(null);
 
   const debouncedCallback = useCallback(
-    (...args: any[]) => {
+    (...args: Parameters<T>) => {
       if (immediate) {
         if (
           lastCallTime.current === null ||

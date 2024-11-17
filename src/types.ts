@@ -48,3 +48,6 @@ export enum Currency {
   XPT = "XPT",
   XRP = "XRP",
 }
+
+export const defaultCurrency = Currency.USD;
+export const MAX_MONEY = 1e10;

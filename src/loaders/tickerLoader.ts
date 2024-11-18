@@ -44,27 +44,30 @@ const getTickerQuery = (currency: Currency) => ({
 
 export const tickerLoader =
   ({ queryClient }: { queryClient: QueryClient }) =>
-  ({ params, request }: LoaderFunctionArgs<CurrencyExchangeData>) => {
-    const currency = params.currency || defaultCurrency;
-    const amountParam = new URL(request.url).searchParams.get("amount") || "0";
-    const isEmptyState = amountParam === "0";
-    // Parse the amount and check for validity
-    const amount = parseFloat(amountParam);
-    if (isNaN(amount)) {
-      // Redirect to the home page
-      return redirect("/");
-    }
+    ({
+      params,
+      request,
+    }: LoaderFunctionArgs<CurrencyExchangeData & { isEmptyState: boolean }>) => {
+      const currency = params.currency || defaultCurrency;
+      const amountParam = new URL(request.url).searchParams.get("amount") || "0";
+      const isEmptyState = amountParam === "0";
+      // Parse the amount and check for validity
+      const amount = parseFloat(amountParam);
+      if (isNaN(amount)) {
+        // Redirect to the home page
+        return redirect("/");
+      }
 
-    const query = getTickerQuery(currency as Currency);
-    const tickerPromise: Promise<GetTickerAPIResponse[]> =
-      queryClient.getQueryData(query.queryKey) ?? queryClient.fetchQuery(query);
-    const data = Promise.resolve(tickerPromise).then((res) =>
-      res
-        .filter((el) => el.currency != currency && isCurrency(el.currency))
-        .map(({ currency, bid }) => ({
-          currency,
-          amount: parseFloat(bid) * amount,
-        })),
-    );
-    return { data, isEmptyState };
-  };
+      const query = getTickerQuery(currency as Currency);
+      const tickerPromise: Promise<GetTickerAPIResponse[]> =
+        queryClient.getQueryData(query.queryKey) ?? queryClient.fetchQuery(query);
+      const data = Promise.resolve(tickerPromise).then((res) =>
+        res
+          .filter((el) => el.currency != currency && isCurrency(el.currency))
+          .map(({ currency, bid }) => ({
+            currency,
+            amount: parseFloat(bid) * amount,
+          })),
+      );
+      return { data, isEmptyState };
+    };

@@ -20,7 +20,7 @@ As shown in the video, all data about currency exchange rates are cached accordi
 
 Explanation
 
-The application's structure is inspired by the followinf article: https://reactrouter.com/en/main/guides/data-libs. Therefore all data fetching on the app is made inside the loader function on the route definition: 
+The application's structure is inspired by the followinf article: https://reactrouter.com/en/main/guides/data-libs. Therefore all data fetching on the app is made inside the loader function on the route definition, which also can cache any loader function since we pass the queryClient object to it: 
 
 ```typescript
 export const router = (queryClient: QueryClient) =>

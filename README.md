@@ -11,6 +11,8 @@ Demo video:
 
 The project was built with @radix-ui to make building the UI easier 
 
+As shown in the video, all data about currency exchange rates are cached according to the currency request, so if a user request EUR, then USD and back EUR, it would not request it again. All state for the data fetch is managed by the URL, as in /:currency?amount=<value>, and all useStates in the components are just for UI purposes. If an error occurs we can handle appropriatly, in this app if it is a 404 we display a proper screen, otheriwse a generic one is shown.
+
 Explanation
 
 The application's structure is inspired by the followinf article: https://reactrouter.com/en/main/guides/data-libs. Therefore all data fetching on the app is made inside the loader function on the route definition: 

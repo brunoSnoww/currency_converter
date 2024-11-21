@@ -63,15 +63,6 @@ const getTickerQuery = (currency: Currency) => ({
 });
 ```
 
-Also, using route-based loaders and error boundaries provides a robust error handling mechanism throughout the application. If an error occurs during data fetching in the loader, the errorElement specified in the route definition renders, providing a centralized and consistent way to handle errors.
-
-All currencies are hard coded inside on the project are hard-coded, but ideally we would fetch such data from a proper API, like in 
-```bash
-curl https://api.uphold.com/v0/assets
-```
-
-
-
 
 
 

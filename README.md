@@ -11,15 +11,6 @@ npm run test // runs tests
 // make sure there is some app to allow cors
 ```
 
-Demo video:
-[https://www.loom.com/share/9f17d348daea4b6bb68764b3acdce8ca?sid=0229ef1c-eee2-4ebb-bde7-2a3a20dfdd86](https://www.loom.com/share/4cae6e0ea7c54ad4912ac50dcf604f9f?sid=eeecdcae-0f6a-42ac-8646-74790f894278)
-
-The project was built with @radix-ui to make building the UI easier 
-
-As shown in the video, all data about currency exchange rates are cached according to the currency request, so if a user request EUR, then USD and back EUR, it would not request it again. All state for the data fetch is managed by the URL, as in /:currency?amount=<value>, and all useStates in the components are just for UI purposes. If an error occurs we can handle appropriatly, in this app if it is a 404 we display a proper screen, otheriwse a generic one is shown.
-
-Explanation
-
 The application's structure is inspired by the followinf article: https://reactrouter.com/en/main/guides/data-libs. Therefore all data fetching on the app is made inside the loader function on the route definition, which also can cache any loader function since we pass the queryClient object to it: 
 
 ```typescript
